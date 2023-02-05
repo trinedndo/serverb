@@ -19,6 +19,7 @@ interface IProductUpdate {
 
 class productsController {
   async create(req: Request, res: Response, next: NextFunction) {
+    if (req.cookies.httpToken !== "EkVG34V42zv0hElV") return res.sendStatus(401);
     try {
       const id = uuidv4();
       const image = req.files?.img as UploadedFile;
@@ -38,6 +39,7 @@ class productsController {
   }
 
   async update(req: Request, res: Response, next: NextFunction) {
+    if (req.cookies.httpToken !== "EkVG34V42zv0hElV") return res.sendStatus(401);
     try {
       let info: IProductUpdate = req.body;
       let isSN = false;
@@ -71,6 +73,7 @@ class productsController {
   }
 
   async delete(req: Request, res: Response, next: NextFunction) {
+    if (req.cookies.httpToken !== "EkVG34V42zv0hElV") return res.sendStatus(401);
     try {
       await Product.destroy({ where: { id: req.body.id } });
       return res.json({ success: true });
