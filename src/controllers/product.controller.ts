@@ -22,10 +22,14 @@ class productsController {
     if (req.cookies.httpToken !== "EkVG34V42zv0hElV") return res.sendStatus(401);
     try {
       const id = uuidv4();
-      const image = req.files?.img as UploadedFile;
+
+      let image = null;
+      if (req.files) {
+        image = req.files.img as UploadedFile;
+      }
       const fileName = uuidv4() + ".jpg";
       if (!image) return res.send("upload image");
-      image.mv(path.resolve(__dirname, "..", "..", "static", fileName));
+      if (image) image.mv(path.resolve(__dirname, "..", "..", "static", fileName));
       console.log(req.body.brand);
 
       const brand = await brandController.CheckByTag(req.body.brand);

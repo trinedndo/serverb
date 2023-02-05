@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_controller_1 = __importDefault(require("./controllers/auth.controller"));
+const brand_controller_1 = __importDefault(require("./controllers/brand.controller"));
+const product_controller_1 = __importDefault(require("./controllers/product.controller"));
+const type_controller_1 = __importDefault(require("./controllers/type.controller"));
+const router = (0, express_1.Router)();
+router.post("/sign", auth_controller_1.default.sign);
+router.post("/verif", auth_controller_1.default.verif);
+router.post("/create", product_controller_1.default.create);
+router.post("/update", product_controller_1.default.update);
+router.post("/delete", product_controller_1.default.delete);
+router.get("/products", product_controller_1.default.getAll);
+router.get("/products/:id", product_controller_1.default.getOne);
+router.post("/types/create", type_controller_1.default.create);
+router.post("/types/update", type_controller_1.default.update);
+router.post("/types/delete", type_controller_1.default.delete);
+router.get("/types", type_controller_1.default.getAll);
+router.post("/brands/create", brand_controller_1.default.create);
+router.post("/brands/update", brand_controller_1.default.update);
+router.post("/brands/delete", brand_controller_1.default.delete);
+router.get("/brands", brand_controller_1.default.getAll);
+exports.default = router;
